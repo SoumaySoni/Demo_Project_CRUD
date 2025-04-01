@@ -6,7 +6,6 @@ const router = express.Router();
 // Read All Employees
 
 router.get("/", (req, res) => {
-  console.log(req.body);
   db.query("SELECT * FROM employees", (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(result).status(200);
@@ -32,7 +31,6 @@ router.post("/", (req, res) => {
 // Read single employee
 
 router.get("/:id", (req, res) => {
-  console.log(req.params.id);
   const { id } = req.params;
   db.query("SELECT * FROM employees WHERE id = ?", [id], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -50,7 +48,6 @@ router.delete("/:id", (req, res) => {
     [req.params.id],
     (err, result) => {
       if (err) return res.status(500).json({ error: err.message });
-      console.log(result);
       if (result.affectedRows === 0)
         return res.status(404).json({
           message: "employee not found",
